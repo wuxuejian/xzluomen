@@ -28,6 +28,7 @@
 <![endif]-->
 <link href="<?php echo get_bloginfo('template_url').'/style.css';?>?v=2.0.5" rel="stylesheet">
 <link rel="canonical" href="<?php echo dmeng_canonical_url();?>">
+<link rel="shortcut icon" href="/wp-includes/images/luomen/brand.png" type="image/x-icon">
 <?php
 switch( dmeng_is_user_page() ) {
 		case 'login' :

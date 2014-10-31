@@ -101,6 +101,47 @@ class DmengAnalyticsWidget extends WP_Widget {
 	
 }
 
+class DmengIntroWidget extends WP_Widget {
+
+	function __construct() {
+		parent::__construct( 'analytics', __( ' 关于我们' , 'dmeng' ) , array('classname' => 'widget_Intro', 'description' => __( '介绍企业' , 'dmeng' ) ) );
+	}
+
+	function widget( $args, $instance ) {
+		extract($args);
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+		echo $before_widget;
+		if ( $title )
+			echo $before_title . $title . $after_title;
+
+		$list = array(
+			'post' => array( __('文章总数','dmeng'), '徐州罗门装饰工程有限公司成立于2014年10月，本公司以室内装修为主体，融工装，室外装饰工程 设计，家具 门制作的一体的专业化装修工程有限公司，罗门装饰有限公司是一个兼室内外装饰工程、设计施工为一体的专业装饰公司.....' ),
+		);
+		echo '<ul>';
+		foreach( $list as $key=>$value ){
+			echo '<li>'.$value[1] .'</li>';
+		}
+		echo '</ul>';
+		echo $after_widget;
+	}
+
+	function form( $instance ) {
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'post' => 'on', 'cat' => 'on', 'tag' => 'on', 'user' => 'on', 'comment' => 'on', 'view' => 'on', 'search' => 'on') );
+		$title = $instance['title'];
+        ?>
+	<p>
+		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('标题：','dmeng');?></label>
+		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
+	</p>
+        <?php
+	}
+
+	function update( $new_instance, $old_instance ) {
+		
+	}
+	
+}
+
 class DmengOpenWidget extends WP_Widget {
 
 	function __construct() {
@@ -545,6 +586,7 @@ class DmengRecentUserWidget extends WP_Widget {
 function dmeng_register_widgets() {
 	register_widget( 'DmengAnalyticsWidget' );
 	register_widget( 'DmengOpenWidget' );
+        register_widget( 'DmengIntroWidget' );
 	register_widget( 'DmengCreditRankWidget' );
 	register_widget( 'DmengRankWidget' );
 	register_widget( 'DmengRecentUserWidget' );
