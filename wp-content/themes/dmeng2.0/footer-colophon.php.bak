@@ -1,0 +1,60 @@
+<?php
+/*
+ * 欢迎来到代码世界，如果你想修改多梦主题的代码，那我猜你是有更好的主意了～
+ * 那么请到多梦网络（ http://www.dmeng.net/ ）说说你的想法，数以万计的童鞋们会因此受益哦～
+ * 同时，你的名字将出现在多梦主题贡献者名单中，并有一定的积分奖励～
+ * 注释和代码同样重要～
+ * @author 多梦 @email chihyu@aliyun.com 
+ */
+ ?>
+<footer id="colophon" class="container" role="contentinfo" itemscope itemtype="http://schema.org/WPFooter">
+	<div class="panel panel-default text-muted">
+		<div class="panel-body">
+<?php
+/*
+ * 底部边栏
+ * @since DMENG 2.0
+ * 
+ */
+if( is_active_sidebar( 'sidebar-2' ) ){
+		dynamic_sidebar( 'sidebar-2' );
+}
+?>
+<?php
+			// 链接菜单
+			if ( has_nav_menu( 'link_menu' ) ) {
+				wp_nav_menu( array(
+					'menu'              => 'link_menu',
+					'theme_location'    => 'link_menu',
+					'depth'             => -1,
+					'container'         => '',
+					'container_class'   => '',
+					'menu_id'        => 'link_menu',
+					'menu_class'        => 'breadcrumb',
+					'items_wrap' 		=> '<ul id="%1$s" class="%2$s"><li class="active"><span class="glyphicon glyphicon-list-alt"></span> '.__('链接','dmeng').'</li> %3$s</ul>',
+					'walker'            => new Dmeng_Bootstrap_Menu()
+				)	);
+			}
+?>
+		</div>
+		<div class="panel-footer clearfix">
+			<p>&copy; <?php echo date('Y'); ?> <a href="<?php echo home_url('/');?>"><?php bloginfo('name');?></a> <?php _e('版权所有','dmeng');?> 
+			<?php $icp = get_option('zh_cn_l10n_icp_num');if($icp) echo $icp;?> <?php echo stripslashes(htmlspecialchars_decode(get_option('dmeng_footer_code')));?></p>
+			<p><span>徐州罗门装饰工程有限公司</span></p>
+			<p><span>地    址：</span>徐州万达广场C座423室</p>
+			<p><span>联系电话：</span>0516-87876687</p>
+			<span class="pull-right copyright">
+				<?php //printf(__('<a href="%1$s" target="_blank">公司地址</a> ： <a href="%2$s" rel="generator" target="_blank">徐州万达</a>','dmeng'), '##' ,'##'); ?>
+			</span>
+		</div>
+	</div>
+</footer>
+<?php if(  (int)get_option('dmeng_float_button',1) ==1 ){ ?>
+<div class="btn-group-vertical floatButton">
+	<button type="button" class="btn btn-default" id="goTop" title="<?php _e('去顶部','dmeng');?>"><span class="glyphicon glyphicon-arrow-up"></span></button>
+	<button type="button" class="btn btn-default" id="refresh" title="<?php _e('刷新','dmeng');?>"><span class="glyphicon glyphicon-repeat"></span></button>
+	<?php if ( is_home() || is_front_page() ) echo '<a href="http://koubei.baidu.com/s/'.home_url().'" class="btn btn-default" target="_blank"><span class="glyphicon glyphicon-thumbs-up"></span></a>';?>
+	<?php if ( is_single() || is_page() ) echo '<button type="button" class="btn btn-default" id="goComments" title="'.__('评论','dmeng').'"><span class="glyphicon glyphicon-align-justify"></span></button>';?>
+	<button type="button" class="btn btn-default" id="goBottom" title="<?php _e('去底部','dmeng');?> "><span class="glyphicon glyphicon-arrow-down"></span></button>
+</div>
+<?php } ?>
