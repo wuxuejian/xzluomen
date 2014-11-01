@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 function dmeng_is_open_qq($user_id=0){
 	
