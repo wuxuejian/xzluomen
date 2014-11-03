@@ -33,10 +33,8 @@
         </dl>
         <dl class="col-sm-2 site-link">
             <dt>关注我们</dt>
-            <dd><a href="http://twitter.com/segment_fault" target="_blank">Twitter</a></dd>
-            <dd><a href="http://page.renren.com/699146294" target="_blank">人人网</a></dd>
-            <dd><a href="http://weibo.com/segmentfault" target="_blank">新浪微博</a></dd>
-            <dd><a href="http://t.qq.com/segmentfault" target="_blank">腾讯微博</a></dd>
+            <dd><a href="http://weibo.com/" target="_blank">新浪微博</a></dd>
+            <dd><a href="http://t.qq.com/" target="_blank">腾讯微博</a></dd>
         </dl>
         <dl class="col-sm-4 site-link" id="license">
             <dt>内容许可</dt>
@@ -47,7 +45,8 @@
     <div class="copyright">
 	Copyright&copy; <?php echo date('Y'); ?> <a href="<?php echo home_url('/');?>"><?php bloginfo('name');?></a> <?php _e('版权所有','dmeng');?> <br/>
 	<span>地    址：</span>徐州万达广场C座423室</br>
-        <a href="http://www.miibeian.gov.cn/" rel="nofollow">京 ICP 备 12004937 号</a>, 京公网安备 110108008332 号
+        <a href="http://www.miibeian.gov.cn/" rel="nofollow">京 ICP 备 12004932 号</a>, 京公网安备 110108008322 号
     </div>
 </div>
 </footer>
+<?php echo stripslashes(htmlspecialchars_decode(get_option('dmeng_footer_code')));?>
