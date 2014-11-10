@@ -45,7 +45,7 @@
     <div class="copyright">
 	Copyright&copy; <?php echo date('Y'); ?> <a href="<?php echo home_url('/');?>"><?php bloginfo('name');?></a> <?php _e('版权所有','dmeng');?> <br/>
 	<span>地    址：</span>徐州万达广场C座423室</br>
-        <a href="http://www.miibeian.gov.cn/" rel="nofollow">京 ICP 备 12004932 号</a>, 京公网安备 110108008322 号
+        <a href="#" rel="nofollow"></a>
     </div>
 </div>
 </footer>
