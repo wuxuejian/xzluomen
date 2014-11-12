@@ -104,7 +104,7 @@ class DmengAnalyticsWidget extends WP_Widget {
 class DmengIntroWidget extends WP_Widget {
 
 	function __construct() {
-		parent::__construct( 'analytics', __( ' 关于我们' , 'dmeng' ) , array('classname' => 'widget_Intro', 'description' => __( '介绍企业' , 'dmeng' ) ) );
+		parent::__construct( 'intro', __( ' 关于我们' , 'dmeng' ) , array('classname' => 'widget_intro', 'description' => __( '介绍企业' , 'dmeng' ) ) );
 	}
 
 	function widget( $args, $instance ) {
@@ -113,9 +113,9 @@ class DmengIntroWidget extends WP_Widget {
 		echo $before_widget;
 		if ( $title )
 			echo $before_title . $title . $after_title;
-
+                $intro = $instance['intro']?$instance['intro']:'徐州罗门装饰工程有限公司成立于2014年10月，本公司以室内装修为主体，融工装，室外装饰工程 设计，家具 门制作的一体的专业化装修工程有限公司，罗门装饰有限公司是一个兼室内外装饰工程、设计施工为一体的专业装饰公司.....' ;
 		$list = array(
-			'post' => array( __('文章总数','dmeng'), '徐州罗门装饰工程有限公司成立于2014年10月，本公司以室内装修为主体，融工装，室外装饰工程 设计，家具 门制作的一体的专业化装修工程有限公司，罗门装饰有限公司是一个兼室内外装饰工程、设计施工为一体的专业装饰公司.....' ),
+			'post' => array( __('文章总数','dmeng'), $intro ),
 		);
 		echo '<ul>';
 		foreach( $list as $key=>$value ){
@@ -126,18 +126,123 @@ class DmengIntroWidget extends WP_Widget {
 	}
 
 	function form( $instance ) {
-		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'post' => 'on', 'cat' => 'on', 'tag' => 'on', 'user' => 'on', 'comment' => 'on', 'view' => 'on', 'search' => 'on') );
+		$instance = wp_parse_args( (array) $instance, array( 'title' => '', 'intro' => '',) );
 		$title = $instance['title'];
+                $intro = $instance['intro'];
         ?>
 	<p>
 		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('标题：','dmeng');?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" />
 	</p>
+        <p>
+		<label for="<?php echo $this->get_field_id('intro'); ?>"><?php _e('介绍：','dmeng');?></label>
+                <textarea class="widefat" id="<?php echo $this->get_field_id('intro'); ?>" name="<?php echo $this->get_field_name('intro'); ?>" type="text"><?php echo esc_attr($intro); ?></textarea>
+	</p>
         <?php
 	}
 
 	function update( $new_instance, $old_instance ) {
-		
+		$instance = $old_instance;
+		$new_instance = wp_parse_args((array) $new_instance, array());
+		$list = array('title', 'intro',);
+		foreach( $list as $key ){
+			$instance[$key] = $new_instance[$key];
+		}
+		return $instance;
+	}
+	
+}
+
+class DmengSiteLinkWidget extends WP_Widget {
+    public $names;
+    public $list;
+        function __construct() {
+            parent::__construct( 'sitelink', __( ' 网站链接' , 'dmeng' ) , array('classname' => 'widget_sitelink', 'description' => __( '网站链接' , 'dmeng' ) ) );
+
+        $this->names = array('about'=>'关于我们','tos'=>'服务条款','contact'=>'联系我们','hiring'=>'加入我们','link'=>'合作伙伴','press'=>'新闻报道','feedback'=>'建议反馈','weibo'=>'新浪微博','qq'=>'腾讯微博');
+
+        $this->list = array('about', 'tos','contact','hiring','link','press','feedback','weibo','qq');   
+        }
+
+	function widget( $args, $instance ) {
+		extract($args);
+		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+		echo $before_widget;
+		if ( $title )
+			echo $before_title . $title . $after_title;
+                $about = $instance['about']?$instance['about']:'#' ;
+                $tos = $instance['tos']?$instance['tos']:'#';
+                $faq = $instance['faq']?$instance['faq']:'#';
+                $contact = $instance['contact']?$instance['contact']:'#';
+                $hiring = $instance['hiring']?$instance['hiring']:'#';
+                $link = $instance['link']?$instance['link']:'#';
+                $press = $instance['press']?$instance['press']:'#';
+                $feedback = $instance['feedback']?$instance['feedback']:'#';
+                $weibo = $instance['weibo']?$instance['weibo']:'#';
+                $qq = $instance['qq']?$instance['qq']:'#';
+                
+		$list = array(
+			'post' => array( __('文章总数','dmeng'), $intro ),
+		);
+		echo '<div class="row hidden-xs">
+        <dl class="col-sm-2 site-link">
+            <dt>网站相关</dt>
+            <dd><a href="'.$about.'">关于我们</a></dd>
+            <dd><a href="'.$tos.'">服务条款</a></dd>
+            <dd><a href="'.$help.'">帮助中心</a></dd>
+        </dl>
+        <dl class="col-sm-2 site-link">
+            <dt>联系合作</dt>
+            <dd><a href="'.$contact.'">联系我们</a></dd>
+            <dd><a href="'.$hiring.'">加入我们</a></dd>
+            <dd><a href="'.$link.'">合作伙伴</a></dd>
+            <dd><a href="'.$press.'">媒体报道</a></dd>
+            <dd><a href="'.$feedback.'">建议反馈</a></dd>
+        </dl>
+        <dl class="col-sm-2 site-link">
+            <dt>常用链接</dt>
+            <dd><a href="/#">房型图</a></dd>
+            <dd><a href="/#">效果图</a></dd>
+
+        </dl>
+        <dl class="col-sm-2 site-link">
+            <dt>关注我们</dt>
+            <dd><a href="http://weibo.com/" target="_blank">新浪微博</a></dd>
+            <dd><a href="http://t.qq.com/" target="_blank">腾讯微博</a></dd>
+        </dl>
+        <dl class="col-sm-4 site-link" id="license">
+            <dt>内容许可</dt>
+            <dd>除特别说明外，所有内容禁止商业用途</dd>
+            <dd>本站由 <a href="##">wxj</a> 提供技术支持</dd>
+        </dl>
+    </div>';
+		echo $after_widget;
+	}
+
+	function form( $instance ) {
+            
+
+            $instance = wp_parse_args( (array) $instance, array( 'about' =>'', 'tos' =>'','contact'=>'','hiring'=>'','link'=>'','press'=>'','feedback'=>'','weibo'=>'','qq'=>'') );
+            foreach ($instance as $key=>$value) {
+                ?>
+            <p>
+            <label for="<?php echo $this->get_field_id($key); ?>"><?php _e( $this->names[$key].'：','dmeng');?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id($key); ?>" name="<?php echo $this->get_field_name($key); ?>" type="text" value="<?php echo esc_attr($value); ?>" />
+            </p>
+                <?php
+            }
+        ?>
+        <?php
+	}
+
+	function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		$new_instance = wp_parse_args((array) $new_instance, array());
+		$list = $this->list;
+		foreach( $list as $key ){
+			$instance[$key] = $new_instance[$key];
+		}
+		return $instance;
 	}
 	
 }
@@ -590,6 +695,7 @@ function dmeng_register_widgets() {
 	register_widget( 'DmengCreditRankWidget' );
 	register_widget( 'DmengRankWidget' );
 	register_widget( 'DmengRecentUserWidget' );
+        register_widget('DmengSiteLinkWidget');
 }
 
 add_action( 'widgets_init', 'dmeng_register_widgets' );
